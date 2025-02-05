@@ -9,9 +9,9 @@
 
 TNetwork network("ESP32-Access-Point", "123456789");
 
-TPressure pressure(17);
+TPressure pressure(26);
 
-TLight light(4, 32);
+TLight light(21, 32);
 
 TMotor leftMotor(14, 12);
 TMotor rightMotor(33, 32);
