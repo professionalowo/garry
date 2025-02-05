@@ -1,13 +1,13 @@
 #pragma once
 
-class Motor{
+class TMotor{
 
     public:
-        Motor(int forward_pin, int backwards_pin);
+        TMotor(int forward_pin, int backwards_pin);
         void forward();
         void backward();
         void stop();
-        ~Motor();
+        ~TMotor();
 
     private:
         int m_backwardsPin;
