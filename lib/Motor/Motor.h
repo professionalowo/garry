@@ -5,7 +5,7 @@ class Motor{
     public:
         Motor(int forward_pin, int backwards_pin);
         void forward();
-        void backwards();
+        void backward();
         void stop();
         ~Motor();
 

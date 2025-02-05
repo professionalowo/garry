@@ -15,8 +15,8 @@ const long timeoutTime = 2000;
 
 WiFiServer server(80);
 
-Motor leftMotor(12,14);
-Motor rightMotor(32,33);
+Motor leftMotor(14,12);
+Motor rightMotor(33,32);
 
 AnalogAudioStream out;
 BluetoothA2DPSink a2dp_sink(out);
@@ -157,16 +157,16 @@ void handle_state()
         leftMotor.forward();
         break;
     case BACKWARD:
-        rightMotor.backwards();
-        leftMotor.backwards();
+        rightMotor.backward();
+        leftMotor.backward();
         break;
     case LEFT:
-        rightMotor.forward();
-        leftMotor.backwards();
+        rightMotor.stop();
+        leftMotor.forward();
         break;
     case RIGHT:
-        rightMotor.backwards();
-        leftMotor.forward();
+        rightMotor.forward();
+        leftMotor.stop();
         break;
     }
 }

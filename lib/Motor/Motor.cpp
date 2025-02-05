@@ -14,7 +14,7 @@ Motor::~Motor()
     stop();
 }
 
-void Motor::backwards(){
+void Motor::backward(){
     digitalWrite(m_backwardsPin, HIGH);
     digitalWrite(m_forward_pin, LOW);
 }
