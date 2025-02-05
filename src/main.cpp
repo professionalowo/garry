@@ -4,8 +4,14 @@
 #include "Motor.h"
 #include "Direction.h"
 #include "Network.h"
+#include "Pressure.h"
+#include "Light.h"
 
 TNetwork network("ESP32-Access-Point", "123456789");
+
+TPressure pressure(17);
+
+TLight light(4, 32);
 
 TMotor leftMotor(14, 12);
 TMotor rightMotor(33, 32);
@@ -32,6 +38,7 @@ void setup()
     Serial.begin(115200);
     bluetooth_setup();
     network.setup();
+    light.setup();
 }
 
 void handle_state(Direction current_direction)
@@ -64,4 +71,5 @@ void handle_state(Direction current_direction)
 void loop()
 {
     handle_state(network.loop());
+    light.loop(pressure);
 }
