@@ -16,8 +16,8 @@ TLight light(21, 32);
 TMotor leftMotor(14, 12);
 TMotor rightMotor(33, 32);
 
-AnalogAudioStream out;
-BluetoothA2DPSink a2dp_sink(out);
+// AnalogAudioStream out;
+// BluetoothA2DPSink a2dp_sink(out);
 
 void data_recieved_callback(const uint8_t *data, uint32_t len)
 {
@@ -26,17 +26,17 @@ void data_recieved_callback(const uint8_t *data, uint32_t len)
     // 1 frame is 2 channels * 2 bytes = 4 bytes
     Serial.printf("Got %d bytes\n", len);
 }
-
+/*
 void bluetooth_setup()
 {
     a2dp_sink.set_stream_reader(data_recieved_callback);
     a2dp_sink.start("Inselkaraoke");
-}
+}*/
 
 void setup()
 {
     Serial.begin(115200);
-    bluetooth_setup();
+    //bluetooth_setup();
     network.setup();
     light.setup();
 }
@@ -71,5 +71,5 @@ void handle_state(Direction current_direction)
 void loop()
 {
     handle_state(network.loop());
-    light.loop(pressure);
+    light.loop(pressure.loop());
 }

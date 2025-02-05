@@ -9,6 +9,6 @@ public:
 
 private:
     int m_pin;
-    int m_previous_time = 0;
+    int m_previous_time;
     const int m_timeout = 1000;
 };
