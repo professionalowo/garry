@@ -15,9 +15,9 @@ TMotor rightMotor(33, 32);
 
 TPressure pressure(26);
 
-#define AUDIO_LENGTH 2
+#define AUDIO_LENGTH 5
 
-const unsigned char audio_data[AUDIO_LENGTH] = {0, 255};
+const unsigned char audio_data[AUDIO_LENGTH] = {0, 0, 0, 0, 255};
 
 TAudio audio(25, audio_data, AUDIO_LENGTH);
 
