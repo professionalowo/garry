@@ -13,6 +13,7 @@ public:
 private:
     const char *m_ssid;
     const char *m_password;
+    Direction m_current_direction = Direction::NONE;
     String m_header;
     int m_current_time;
     int m_previous_time;

@@ -9,8 +9,8 @@ TNetwork network("Garry-Net", "123456789");
 
 TLight light(32);
 
-TMotor leftMotor(14, 12);
-TMotor rightMotor(33, 32);
+TMotor leftMotor(12, 14);
+TMotor rightMotor(32, 33);
 
 TPressure pressure(26);
 
@@ -38,19 +38,20 @@ void handle_state(Direction current_direction)
         leftMotor.backward();
         break;
     case Direction::LEFT:
-        rightMotor.stop();
+        rightMotor.backward();
         leftMotor.forward();
         break;
     case Direction::RIGHT:
         rightMotor.forward();
-        leftMotor.stop();
+        leftMotor.backward();
         break;
     }
 }
 
 void loop()
 {
-    handle_state(network.loop());
+    auto state = network.loop();
+    handle_state(state);
     auto is_hit = pressure.loop();
-    light.loop(pressure);
+    light.loop(is_hit);
 }
