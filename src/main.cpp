@@ -9,8 +9,8 @@ TNetwork network("Garry-Net", "123456789");
 
 TLight light(32);
 
-TMotor leftMotor(12, 14);
-TMotor rightMotor(32, 33);
+TMotor leftMotor(14, 12);
+TMotor rightMotor(33, 32);
 
 TPressure pressure(26);
 
@@ -37,11 +37,11 @@ void handle_state(Direction current_direction)
         rightMotor.backward();
         leftMotor.backward();
         break;
-    case Direction::LEFT:
+    case Direction::RIGHT:
         rightMotor.backward();
         leftMotor.forward();
         break;
-    case Direction::RIGHT:
+    case Direction::LEFT:
         rightMotor.forward();
         leftMotor.backward();
         break;
