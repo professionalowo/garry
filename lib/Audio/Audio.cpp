@@ -8,11 +8,6 @@ TAudio::TAudio(int pin, std::vector<unsigned char> &&data)
 {
 }
 
-void TAudio::setup()
-{
-    pinMode(m_pin, OUTPUT);
-}
-
 void TAudio::step()
 {
     if (m_index < m_data.size())

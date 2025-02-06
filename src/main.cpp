@@ -24,7 +24,6 @@ void setup()
     Serial.begin(115200);
     network.setup();
     light.setup();
-    audio.setup();
 }
 
 void handle_state(Direction current_direction)

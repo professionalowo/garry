@@ -7,7 +7,6 @@ class TAudio
 {
 public:
     TAudio(int pin, std::vector<unsigned char>&& data);
-    void setup();
     void loop(bool start_audio);
     ~TAudio();
 
