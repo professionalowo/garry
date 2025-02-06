@@ -1,28 +1,12 @@
 #include "Audio.h"
 
-#define DEBUG_AUDIO 0
+#define DEBUG_AUDIO 1
 
-TAudio::TAudio(int pin, std::vector<unsigned char> &&data)
+TAudio::TAudio(int pin, std::vector<std::pair<int,int>> &&data)
     : m_pin(pin),
-      m_data(data)
+      m_data(data),
+      m_tone(new ToneESP32(pin, 0))
 {
-}
-
-void TAudio::step()
-{
-    if (m_index < m_data.size())
-    {
-        dacWrite(m_pin, m_data[m_index]);
-        if (DEBUG_AUDIO)
-        {
-            Serial.println(m_data[m_index]);
-        }
-        m_index++;
-    }
-    else
-    {
-        stop();
-    }
 }
 
 void TAudio::loop(bool start_audio)
@@ -31,19 +15,18 @@ void TAudio::loop(bool start_audio)
     {
         step();
     }
+}
+
+void TAudio::step()
+{
+    if (m_index < m_data.size())
+    {
+        auto val = m_data[m_index];
+        m_tone.get()->tone(val.first, val.second);
+        m_index++;
+    }
     else
     {
-        stop();
+        m_index = 0;
     }
-}
-
-void TAudio::stop()
-{
-    m_index = 0;
-    digitalWrite(m_pin, LOW);
-}
-
-TAudio::~TAudio()
-{
-    stop();
 }

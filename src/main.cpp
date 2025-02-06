@@ -4,9 +4,8 @@
 #include "Network.h"
 #include "Pressure.h"
 #include "Light.h"
-#include "Audio.h"
 
-TNetwork network("Müllabfuhr-Point", "123456789");
+TNetwork network("Garry-Net", "123456789");
 
 TLight light(32);
 
@@ -14,10 +13,6 @@ TMotor leftMotor(14, 12);
 TMotor rightMotor(33, 32);
 
 TPressure pressure(26);
-
-std::vector<unsigned char> audio_data = {HIGH, LOW, HIGH, LOW, HIGH};
-
-TAudio audio(25, std::move(audio_data));
 
 void setup()
 {
@@ -57,6 +52,5 @@ void loop()
 {
     handle_state(network.loop());
     auto is_hit = pressure.loop();
-    light.loop(is_hit);
-    audio.loop(is_hit);
+    light.loop(pressure);
 }
