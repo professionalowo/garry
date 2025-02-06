@@ -1,19 +1,19 @@
 #pragma once
 
 #include "Arduino.h"
+#include <vector>
 
 class TAudio
 {
 public:
-    TAudio(int pin, const unsigned char *data, int length);
+    TAudio(int pin, std::vector<unsigned char>&& data);
     void setup();
     void loop(bool start_audio);
     ~TAudio();
 
 private:
     int m_pin;
-    int m_length;
-    const unsigned char *m_data;
+    std::vector<unsigned char> m_data;
     int m_index = 0;
     void step();
     void stop();

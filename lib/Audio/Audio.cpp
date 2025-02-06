@@ -1,9 +1,10 @@
 #include "Audio.h"
 
-TAudio::TAudio(int pin, const unsigned char *data, int length)
+#define DEBUG_AUDIO 0
+
+TAudio::TAudio(int pin, std::vector<unsigned char> &&data)
     : m_pin(pin),
-      m_data(data),
-      m_length(length)
+      m_data(data)
 {
 }
 
@@ -14,9 +15,13 @@ void TAudio::setup()
 
 void TAudio::step()
 {
-    if (m_index < m_length)
+    if (m_index < m_data.size())
     {
         digitalWrite(m_pin, m_data[m_index]);
+        if (DEBUG_AUDIO)
+        {
+            Serial.println(m_data[m_index]);
+        }
         m_index++;
     }
     else
@@ -46,5 +51,4 @@ void TAudio::stop()
 TAudio::~TAudio()
 {
     stop();
-    delete m_data;
 }

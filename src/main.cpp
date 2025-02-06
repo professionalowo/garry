@@ -15,11 +15,9 @@ TMotor rightMotor(33, 32);
 
 TPressure pressure(26);
 
-#define AUDIO_LENGTH 5
+std::vector<unsigned char> audio_data = {HIGH, LOW, HIGH, LOW, HIGH};
 
-const unsigned char audio_data[AUDIO_LENGTH] = {0, 0, 0, 0, 255};
-
-TAudio audio(25, audio_data, AUDIO_LENGTH);
+TAudio audio(25, std::move(audio_data));
 
 void setup()
 {
