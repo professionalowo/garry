@@ -1,5 +1,3 @@
-#include "AudioTools.h"
-#include "BluetoothA2DPSink.h"
 #include "WiFi.h"
 #include "Motor.h"
 #include "Direction.h"
@@ -14,33 +12,12 @@ TLight light(32);
 TMotor leftMotor(14, 12);
 TMotor rightMotor(33, 32);
 
-AnalogAudioStream out;
-BluetoothA2DPSink a2dp_sink(out);
-
 TPressure pressure(26);
 
-void data_recieved_callback(const uint8_t *data, uint32_t len)
-{
-    // generate your sound data
-    // return the effective length (in frames) of the generated sound  (which usually is identical with the requested len)
-    // 1 frame is 2 channels * 2 bytes = 4 bytes
-    Serial.printf("Got %d bytes\n", len);
-}
-
-void bluetooth_setup()
-{
-    a2dp_sink.set_stream_reader(data_recieved_callback);
-    auto cfg = out.defaultConfig();
-    cfg.adc_pin = 25;
-    cfg.channels = 1;
-    out.begin(cfg);
-    a2dp_sink.start("Müllabfuhr");
-}
 
 void setup()
 {
     Serial.begin(115200);
-    bluetooth_setup();
     network.setup();
     light.setup();
 }
@@ -75,5 +52,5 @@ void handle_state(Direction current_direction)
 void loop()
 {
     handle_state(network.loop());
-    light.loop(pressure.loop());
+    light.loop(pressure);
 }
