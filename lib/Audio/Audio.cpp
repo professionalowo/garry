@@ -2,7 +2,7 @@
 
 #define DEBUG_AUDIO 1
 
-TAudio::TAudio(int pin, std::vector<std::pair<int,int>> &&data)
+TAudio::TAudio(int pin, std::vector<std::pair<int, int>> &&data)
     : m_pin(pin),
       m_data(data),
       m_tone(new ToneESP32(pin, 0))
@@ -15,6 +15,7 @@ void TAudio::loop(bool start_audio)
     {
         step();
     }
+    m_index = 0;
 }
 
 void TAudio::step()
