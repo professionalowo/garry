@@ -17,7 +17,7 @@ void TAudio::step()
 {
     if (m_index < m_data.size())
     {
-        digitalWrite(m_pin, m_data[m_index]);
+        dacWrite(m_pin, m_data[m_index]);
         if (DEBUG_AUDIO)
         {
             Serial.println(m_data[m_index]);
