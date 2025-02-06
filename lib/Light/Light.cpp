@@ -1,25 +1,27 @@
 #include "Light.h"
 
-TLight::TLight(int pin, int length) : m_length(length), m_strip(Adafruit_NeoPixel(pin, length, NEO_GRB + NEO_KHZ800)) {}
+TLight::TLight(int length)
+    : m_length(length)
+{
+    m_leds = new CRGB[m_length];
+}
 
 TLight::~TLight()
 {
-    m_strip.clear();
+    delete[] m_leds;
 }
-
-
 
 void TLight::loop(bool on)
 {
     if (on)
     {
-        m_strip.setPixelColor(m_length, m_strip.Color(0, 255, 0));
+        set_color(CRGB::Green);
     }
     else
     {
-        m_strip.clear();
+        set_color(CRGB::Orange);
     }
-    m_strip.show();
+    FastLED.show();
 }
 
 void TLight::loop(TPressure &pressure)
@@ -29,5 +31,15 @@ void TLight::loop(TPressure &pressure)
 
 void TLight::setup()
 {
-    m_strip.begin();
+    FastLED.addLeds<NEOPIXEL, 21>(m_leds, m_length);
+    set_color(CRGB::Green);
+    FastLED.show();
+}
+
+void TLight::set_color(CRGB color)
+{
+    for (int i = 0; i < m_length; i++)
+    {
+        m_leds[i] = color;
+    }
 }

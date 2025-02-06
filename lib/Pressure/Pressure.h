@@ -10,5 +10,5 @@ public:
 private:
     int m_pin;
     int m_previous_time;
-    const int m_timeout = 1000;
+    const int m_timeout = 300;
 };

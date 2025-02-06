@@ -7,17 +7,17 @@
 #include "Pressure.h"
 #include "Light.h"
 
-TNetwork network("ESP32-Access-Point", "123456789");
+TNetwork network("Müllabfuhr-Point", "123456789");
 
-TPressure pressure(26);
-
-TLight light(21, 32);
+TLight light(32);
 
 TMotor leftMotor(14, 12);
 TMotor rightMotor(33, 32);
 
-// AnalogAudioStream out;
-// BluetoothA2DPSink a2dp_sink(out);
+AnalogAudioStream out;
+BluetoothA2DPSink a2dp_sink(out);
+
+TPressure pressure(26);
 
 void data_recieved_callback(const uint8_t *data, uint32_t len)
 {
@@ -26,17 +26,21 @@ void data_recieved_callback(const uint8_t *data, uint32_t len)
     // 1 frame is 2 channels * 2 bytes = 4 bytes
     Serial.printf("Got %d bytes\n", len);
 }
-/*
+
 void bluetooth_setup()
 {
     a2dp_sink.set_stream_reader(data_recieved_callback);
-    a2dp_sink.start("Inselkaraoke");
-}*/
+    auto cfg = out.defaultConfig();
+    cfg.adc_pin = 25;
+    cfg.channels = 1;
+    out.begin(cfg);
+    a2dp_sink.start("Müllabfuhr");
+}
 
 void setup()
 {
     Serial.begin(115200);
-    //bluetooth_setup();
+    bluetooth_setup();
     network.setup();
     light.setup();
 }
