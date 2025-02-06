@@ -4,6 +4,7 @@
 #include "Network.h"
 #include "Pressure.h"
 #include "Light.h"
+#include "Audio.h"
 
 TNetwork network("Müllabfuhr-Point", "123456789");
 
@@ -14,12 +15,18 @@ TMotor rightMotor(33, 32);
 
 TPressure pressure(26);
 
+#define AUDIO_LENGTH 2
+
+const unsigned char audio_data[AUDIO_LENGTH] = {0, 255};
+
+TAudio audio(25, audio_data, AUDIO_LENGTH);
 
 void setup()
 {
     Serial.begin(115200);
     network.setup();
     light.setup();
+    audio.setup();
 }
 
 void handle_state(Direction current_direction)
@@ -52,5 +59,7 @@ void handle_state(Direction current_direction)
 void loop()
 {
     handle_state(network.loop());
-    light.loop(pressure);
+    auto is_hit = pressure.loop();
+    light.loop(is_hit);
+    audio.loop(is_hit);
 }
